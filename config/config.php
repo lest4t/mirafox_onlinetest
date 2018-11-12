@@ -11,9 +11,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 Config::set('site_name', 'Mirafox Test Online');
-Config::set('routes', array(
-	'default' => '',
-));
+Config::set('routes', array());
 
 Config::set('default_route', 'default');
 Config::set('default_controller', 'index');

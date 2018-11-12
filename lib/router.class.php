@@ -70,7 +70,7 @@ class Router
 				array_shift($pathParts);
 			}
 			if (current($pathParts)) {
-				$this->action = strtolower(curl_reset($pathParts));
+				$this->action = strtolower(current($pathParts));
 				array_shift($pathParts);
 			}
 			$this->params = $pathParts;

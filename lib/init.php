@@ -8,6 +8,7 @@
 require_once(ROOT . DS . 'config' . DS . 'config.php');
 
 function __autoload($className) {
+
 	$libsPath        = ROOT . DS . 'lib' . DS . strtolower($className) . '.class.php';
 	$controllersPath = ROOT . DS . 'controllers' . DS . ucfirst(strtolower(str_replace('Controller', '', $className))) . 'Controller.php';
 	$modelsPath      = ROOT . DS . 'models' . DS . ucfirst(strtolower($className)) . '.php';
