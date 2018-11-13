@@ -1,4 +1,4 @@
-html, body, div, h3, h4, b, form, label, table,
+html, body, div, h3, h4, form, label, table,
 tbody, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
@@ -10,6 +10,9 @@ tbody, thead, tr, th, td {
 
 body {
 	line-height: 1;
+	font-family: sans-serif, Verdana;
+	font-size: 14px;
+	line-height: 25px;
 }
 
 table {
@@ -46,4 +49,9 @@ table {
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
+}
+
+table.results td, th {
+	border: 1px solid #ccc;
+	padding: 5px 10px;
 }
