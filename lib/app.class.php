@@ -8,6 +8,10 @@
 class App
 {
 	protected static $router;
+	/**
+	 * @var DB
+	 */
+	public static $db;
 
 	/**
 	 * @return mixed
@@ -18,6 +22,13 @@ class App
 
 	public static function run($uri) {
 		self::$router = new Router($uri);
+
+		self::$db = new DB(
+			Config::get('db_host'),
+			Config::get('db_user'),
+			Config::get('db_pass'),
+			Config::get('db_name')
+		);
 
 		$controllerClass = ucfirst(self::$router->getController()) . 'Controller';
 		$controllerMethod = strtolower(self::$router->getAction()) . 'Action';
