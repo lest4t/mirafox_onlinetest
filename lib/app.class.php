@@ -30,21 +30,21 @@ class App
 			Config::get('db_name')
 		);
 
-		$controllerClass = ucfirst(self::$router->getController()) . 'Controller';
+		$controllerClass  = ucfirst(self::$router->getController()) . 'Controller';
 		$controllerMethod = strtolower(self::$router->getAction()) . 'Action';
 
 		$controllerObject = new $controllerClass();
 		if (method_exists($controllerObject, $controllerMethod)) {
 
-			$viewPath = $controllerObject->$controllerMethod();
+			$viewPath   = $controllerObject->$controllerMethod();
 			$viewObject = new View($controllerObject->getData(), $viewPath);
-			$content = $viewObject->render();
+			$content    = $viewObject->render();
 		} else {
 			throw new Exception('Method ' . $controllerMethod . ' is not exist.');
 		}
 
-		$layout = self::$router->getRoute();
-		$layoutPath = VIEW_PATH . DS . $layout . '.php';
+		$layout           = self::$router->getRoute();
+		$layoutPath       = VIEW_PATH . DS . $layout . '.php';
 		$layoutViewObject = new View(compact('content'), $layoutPath);
 
 		echo $layoutViewObject->render();

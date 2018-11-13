@@ -16,7 +16,7 @@ class View
 			return false;
 		}
 		$controllerDir = $router->getController();
-		$templateName = $router->getAction() . '.php';
+		$templateName  = $router->getAction() . '.php';
 
 		return VIEW_PATH . DS . $controllerDir . DS . $templateName;
 	}

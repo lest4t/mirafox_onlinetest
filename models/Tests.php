@@ -12,7 +12,7 @@ class Tests extends Model
 	public function add(array $data) {
 		$fields = implode(", ", array_keys($data));
 		$values = implode("', '", array_values($data));
-		$table = static::$table;
+		$table  = static::$table;
 
 		return $this->db->query(
 			"INSERT INTO {$table} ({$fields}) VALUES ('{$values}')", true
@@ -20,7 +20,7 @@ class Tests extends Model
 	}
 
 	public function update($id, array $data) {
-		$table = static::$table;
+		$table   = static::$table;
 		$updates = [];
 
 		foreach ($data as $key => $value) {
@@ -34,7 +34,7 @@ class Tests extends Model
 	}
 
 	public function get(array $data = array()) {
-		$table = static::$table;
+		$table  = static::$table;
 		$select = '*';
 		if (isset($data['select']) && is_array($data['select'])) {
 			$select = implode(", ", $data['select']);
