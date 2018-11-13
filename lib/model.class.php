@@ -36,7 +36,7 @@ class Model
 			$updates[] = "{$key} = '" . $this->db->escape($value) . "'";
 		}
 		$updates = implode(", ", $updates);
-		$sql = "UPDATE {$table} SET {$updates} WHERE id = {$id}";
+		$sql     = "UPDATE {$table} SET {$updates} WHERE id = {$id}";
 
 		return $this->db->query($sql);
 	}

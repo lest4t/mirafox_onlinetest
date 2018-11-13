@@ -16,11 +16,11 @@
 	<form id="form_testing">
 		Сложность:
 		<label for="difficult_from">от</label>
-		<input type="number" min="0" max="100" name="difficult_from" id="difficult_from" value="0" />
+		<input type="number" min="0" max="100" name="difficult_from" id="difficult_from" value="0"/>
 		<label for="difficult_to">до</label>
-		<input type="number" min="0" max="100" name="difficult_to" id="difficult_to" value="100" /><br>
+		<input type="number" min="0" max="100" name="difficult_to" id="difficult_to" value="100"/><br>
 		<label for="person_iq">Интелект тестируемого:</label>
-		<input type="number" min="0" max="100" name="person_iq" id="person_iq" value="50" /><br>
+		<input type="number" min="0" max="100" name="person_iq" id="person_iq" value="50"/><br>
 		<button type="button" id="generate_test">Запустить</button>
 	</form>
 	<br>
@@ -57,7 +57,7 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$('#generate_test').click(function () {
 			var $form = $('#form_testing');
 			$('#test_result').empty();
@@ -72,7 +72,7 @@
 					var questions_count = 0;
 					var right_answers = 0;
 
-					$.each(results, function(index) {
+					$.each(results, function (index) {
 						if (index == 'questions_count') {
 							questions_count = results[index];
 							return;
@@ -101,10 +101,10 @@
 			$.ajax({
 				type: 'POST',
 				url: 'index/results',
-				success: function(data) {
+				success: function (data) {
 					var results = JSON.parse(data);
 
-					$.each(results, function(index) {
+					$.each(results, function (index) {
 						var row = '<tr><td>' + results[index].id +
 							'</td><td>' + results[index].person_iq +
 							'</td><td>' + results[index].difficult_from + '-' + results[index].difficult_to +

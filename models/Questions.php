@@ -10,7 +10,7 @@ class Questions extends Model
 	static $table = 'questions';
 
 	public function getRandomQuestions($s = array(), $avg, $limit) {
-		$table = static::$table;
+		$table  = static::$table;
 		$select = '*';
 
 		if (is_array($s) && count($s) > 0) {

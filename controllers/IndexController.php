@@ -22,7 +22,7 @@ class IndexController extends Controller
 			$right_answers  = 0;
 
 			foreach ($questions as $question) {
-				$answer = (int) static::generateAnswer($person_iq, $question['difficult']);
+				$answer = (int)static::generateAnswer($person_iq, $question['difficult']);
 
 				if ($answer) {
 					$right_answers++;
@@ -58,15 +58,15 @@ class IndexController extends Controller
 	}
 
 	private static function generateQuestions($difficult_from = 0, $difficult_to = 100) {
-		$modelQuestions = new Questions();
+		$modelQuestions       = new Questions();
 		$modelQuestionHistory = new QuestionHistory();
 
-		$avgUsed = $modelQuestions->get(array(
+		$avgUsed   = $modelQuestions->get(array(
 			'select' => array(
 				'AVG(used_count) as avg',
 			),
 		))[0]['avg'];
-		$questions      = $modelQuestions->getRandomQuestions(array(), $avgUsed, 10);
+		$questions = $modelQuestions->getRandomQuestions(array(), $avgUsed, 10);
 
 		foreach ($questions as $index => $v) {
 			$difficult                       = rand($difficult_from, $difficult_to);
@@ -79,7 +79,7 @@ class IndexController extends Controller
 			));
 			$modelQuestionHistory->add(array(
 				'id_question' => $questions[$index]['id'],
-				'date' => date('Y-m-d H:i:s'),
+				'date'        => date('Y-m-d H:i:s'),
 			));
 		}
 
