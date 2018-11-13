@@ -12,7 +12,45 @@ class Model
 	 */
 	protected $db;
 
+	public static $table = '';
+
 	public function __construct() {
 		$this->db = App::$db;
+	}
+
+	public function add(array $data) {
+		$fields = implode(", ", array_keys($data));
+		$values = implode("', '", array_values($data));
+		$table  = static::$table;
+
+		return $this->db->query(
+			"INSERT INTO {$table} ({$fields}) VALUES ('{$values}')", true
+		);
+	}
+
+	public function update($id, array $data) {
+		$table   = static::$table;
+		$updates = [];
+
+		foreach ($data as $key => $value) {
+			$updates[] = "{$key} = '" . $this->db->escape($value) . "'";
+		}
+		$updates = implode(", ", $updates);
+
+		return $this->db->query(
+			"UPDATE {$table} SET {$updates} WHERE id = {$id}"
+		);
+	}
+
+	public function get(array $data = array()) {
+		$table  = static::$table;
+		$select = '*';
+		if (isset($data['select']) && is_array($data['select'])) {
+			$select = implode(", ", $data['select']);
+		}
+
+		return $this->db->query(
+			"SELECT {$select} FROM {$table}"
+		);
 	}
 }
