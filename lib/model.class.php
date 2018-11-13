@@ -23,9 +23,9 @@ class Model
 		$values = implode("', '", array_values($data));
 		$table  = static::$table;
 
-		return $this->db->query(
-			"INSERT INTO {$table} ({$fields}) VALUES ('{$values}')", true
-		);
+		$sql = "INSERT INTO {$table} ({$fields}) VALUES ('{$values}')";
+
+		return $this->db->query($sql, true);
 	}
 
 	public function update($id, array $data) {
@@ -36,10 +36,9 @@ class Model
 			$updates[] = "{$key} = '" . $this->db->escape($value) . "'";
 		}
 		$updates = implode(", ", $updates);
+		$sql = "UPDATE {$table} SET {$updates} WHERE id = {$id}";
 
-		return $this->db->query(
-			"UPDATE {$table} SET {$updates} WHERE id = {$id}"
-		);
+		return $this->db->query($sql);
 	}
 
 	public function get(array $data = array()) {
@@ -48,9 +47,8 @@ class Model
 		if (isset($data['select']) && is_array($data['select'])) {
 			$select = implode(", ", $data['select']);
 		}
+		$sql = "SELECT {$select} FROM {$table}";
 
-		return $this->db->query(
-			"SELECT {$select} FROM {$table}"
-		);
+		return $this->db->query($sql);
 	}
 }

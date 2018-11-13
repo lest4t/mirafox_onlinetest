@@ -11,7 +11,7 @@ function __autoload($className) {
 
 	$libsPath        = ROOT . DS . 'lib' . DS . strtolower($className) . '.class.php';
 	$controllersPath = ROOT . DS . 'controllers' . DS . ucfirst(strtolower(str_replace('Controller', '', $className))) . 'Controller.php';
-	$modelsPath      = ROOT . DS . 'models' . DS . ucfirst(strtolower($className)) . '.php';
+	$modelsPath      = ROOT . DS . 'models' . DS . $className . '.php';
 
 	if (file_exists($libsPath)) {
 		require_once($libsPath);
