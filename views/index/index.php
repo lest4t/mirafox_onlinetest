@@ -41,6 +41,7 @@
 
 <div id="results" class="tabcontent">
 	<h4><b>Результаты</b></h4>
+	<button type="button" id="refresh_results">Обновить</button>
 	<table class="results">
 		<thead>
 		<tr>
@@ -50,7 +51,69 @@
 			<td>Результат тестирования</td>
 		</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody id="tests_results"></tbody>
 	</table>
-	<button type="button" id="refresh">Обновить</button>
+
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#generate_test').click(function () {
+			var $form = $('#form_testing');
+			$('#test_result').empty();
+			$('#test_result_count').empty();
+
+			$.ajax({
+				type: 'POST',
+				url: 'index/testing',
+				data: $form.serialize(),
+				success: function (data) {
+					var results = JSON.parse(data);
+					var questions_count = 0;
+					var right_answers = 0;
+
+					$.each(results, function(index) {
+						if (index == 'questions_count') {
+							questions_count = results[index];
+							return;
+						}
+						if (index == 'right_answers') {
+							right_answers = results[index];
+							return;
+						}
+						var row = '<tr><td>' + (index + 1) +
+							'</td><td>' + results[index].id +
+							'</td><td>' + results[index].used_count +
+							'</td><td>' + results[index].difficult +
+							'</td><td>' + ((results[index].answer) ? 'Да' : 'Нет') +
+							'</td></tr>';
+						$('#test_result').append(row);
+					});
+
+					$('#test_result_count').append('Верно ' + right_answers + ' из ' + questions_count);
+				}
+			});
+		});
+
+		$('#refresh_results').click(function () {
+			$('#tests_results').empty();
+
+			$.ajax({
+				type: 'POST',
+				url: 'index/results',
+				success: function(data) {
+					var results = JSON.parse(data);
+
+					$.each(results, function(index) {
+						var row = '<tr><td>' + results[index].id +
+							'</td><td>' + results[index].person_iq +
+							'</td><td>' + results[index].difficult_from + '-' + results[index].difficult_to +
+							'</td><td>Верно ' + results[index].right_answers + ' из ' + results[index].questions_count +
+							'</td></tr>';
+						$('#tests_results').append(row);
+					});
+				}
+			});
+		});
+	});
+</script>
