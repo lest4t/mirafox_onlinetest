@@ -4,9 +4,6 @@
 Настройки для nginx'а:
 
 ```
-root /home/lest4t/www/mirafox_onlinetest/;
-index index.php;
-
 location / {
     rewrite ^/$ /web/ last;
     rewrite /(.*) /web/$1 last;
