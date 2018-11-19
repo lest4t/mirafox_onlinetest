@@ -21,6 +21,10 @@
 		<input type="number" min="0" max="100" name="difficult_to" id="difficult_to" value="100"/><br>
 		<label for="person_iq">Интелект тестируемого:</label>
 		<input type="number" min="0" max="100" name="person_iq" id="person_iq" value="50"/><br>
+		<label for="method1">Способ №1</label>
+		<input type="radio" id="method1" name="method" value="1" checked><br/>
+		<label for="method2">Способ №2</label>
+		<input type="radio" id="method2" name="method" value="2"><br/>
 		<button type="button" id="generate_test">Запустить</button>
 	</form>
 	<br>

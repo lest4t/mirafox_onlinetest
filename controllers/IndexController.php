@@ -17,12 +17,14 @@ class IndexController extends Controller
 			$difficult_from = $_POST['difficult_from'];
 			$difficult_to   = $_POST['difficult_to'];
 			$person_iq      = $_POST['person_iq'];
+			$method         = $_POST['method'];
 			$questions      = static::generateQuestions($difficult_from, $difficult_to);
 			$results        = array();
 			$right_answers  = 0;
 
 			foreach ($questions as $question) {
-				$answer = (int)static::generateAnswer($person_iq, $question['difficult']);
+				$answer = static::generateAnswer($person_iq, $question['difficult'], $method);
+
 
 				if ($answer) {
 					$right_answers++;
@@ -86,7 +88,7 @@ class IndexController extends Controller
 		return $questions;
 	}
 
-	private static function generateAnswer($person_iq, $difficult) {
+	private static function generateAnswer($person_iq, $difficult, $method) {
 		if ($difficult == 100) {
 			return false;
 		}
@@ -97,8 +99,19 @@ class IndexController extends Controller
 			return true;
 		}
 
-		$chance = $person_iq * (100 / $difficult) / 100 * $person_iq / 15;
+		if ($method == 2) {
+			$chance = $person_iq * (100 / $difficult) / 100 * $person_iq / 15;
+			return rand(0, $difficult) < $chance;
+		}
 
-		return rand(0, $difficult) < $chance;
+		if (static::inRange($difficult, ($person_iq - 10), $person_iq)) {
+			return rand(($person_iq - 10), $person_iq) > $difficult;
+		}
+
+		return $person_iq > $difficult;
+	}
+
+	private static function inRange($num, $min, $max) {
+		return ($min <= $num) && ($num <= $max);
 	}
 }
