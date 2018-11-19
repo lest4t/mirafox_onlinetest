@@ -2,6 +2,6 @@ AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^$ web/ [L]
-    RewriteRule (.*) web/$1 [L]
+    RewriteRule ^$ web/ [L,NC]
+    RewriteRule (.*) web/$1 [L,NC]
 </IfModule>
